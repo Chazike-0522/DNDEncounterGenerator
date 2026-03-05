@@ -2,17 +2,15 @@ import {Shuffle} from "./Shuffle.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 	const generateBtn = document.getElementById("generate");
-	const popup = document.getElementById("myPopup");
-	const closeBtn = document.getElementById("closePopup");
 	const targetCRInput = document.getElementById("CR");
+	const container = document.getElementById('gridContainer');
 	
 	const SUPABASE_URL = "https://wgwvwcegagtmgxvybdok.supabase.co";
 	const SUPABASE_KEY = "sb_publishable_EqSdBnhzoZ1UDXfKnd6Yvw_v1nko1qS";
 	const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 		
 	generateBtn.addEventListener("click", async () => {
-		popup.classList.add("show");
-		popup.textContent = "Loading encounter...";
+		container.classList.add("show");
 		
 		const targetCR = parseInt(targetCRInput.value) || 5;
 		let EnemyTable = [];
@@ -49,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	 catch (err) {
 		console.error(err);
-		popup.textContent = "Error generating encounter:" + err.message;
 	}
 		
 		
@@ -66,35 +63,44 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 		
-		let outputText = `Encounter (Target CR: ${targetCR}):<br>Location: ${Terrain[0].Terrain}<br><br>`;
-		for (const m of encounter) {
-			const { data: EnemyLoot } = await supabaseClient
-			.from("EnemyLoot")
-			.select("EnemyLootId, LootName, LootWeight")
-			.eq("EnemyLootId", m.EnemyLootId);
+		container.innerHTML = "";
+		
+		const header = document.createElement('div');
+		header.classList.add('gridItem');
+		header.style.gridColumn = "1/-1";
+		header.innerHTML = `Encounter (Target CR: ${targetCR}):<br>Location: ${Terrain[0].Terrain}`;
+		container.appendChild(header);
+		
+		for (const m of encounter){
+			const {data: EnemyLoot} = await supabaseClient
+				.from("EnemyLoot")
+				.select("EnemyLootId, LootName, LootWeight")
+				.eq("EnemyLootId", m.EnemyLootId);
 			
-		let lootNames = [];
-		if (EnemyLoot && EnemyLoot.length > 0) {
-			const numLoot = Math.max(1, Math.ceil(m.CR / 3));
-			
-			for (let i = 0; i < numLoot; i++) {
-				const totalWeight = EnemyLoot.reduce((sum, item) => sum + (item.LootWeight || 0), 0);
-				let random = Math.random() * totalWeight;
-			
-				for (const item of EnemyLoot) {
-				if (random < (item.LootWeight || 0)) {
-					lootNames.push(item.LootName);
-					break;
+			let lootNames=[];
+			if (EnemyLoot && EnemyLoot.length > 0) {
+				const numLoot = Math.max(1, Math.ceil(m.CR /3));
+				for (let i = 0; i < numLoot; i++) {
+					const totalWeight = EnemyLoot.reduce((sum, item) => sum + (item.LootWeight || 0), 0);
+					let random = Math.random() * totalWeight;
+					
+					for (const item of EnemyLoot) {
+					if (random < (item.LootWeight || 0)) {
+						lootNames.push(item.LootName);
+						break;
+					}
+					random -= item.LootWeight;
+					}
 				}
-				random -=item.LootWeight;
 			}
-		}
-		outputText += `${m.EnemyName} (CR ${m.CR}):<br> ${lootNames.join("<br>")}<br><br>`;
-		}
-		popup.innerHTML = outputText;
+			
+			const pop = document.createElement('div');
+			pop.classList.add('gridItem');
+			pop.innerHTML = `<strong>${m.EnemyName}</strong> (CR ${m.CR})<br>${lootNames.join("<br>")}`;
+			container.appendChild(pop);
 		}
 	
-	if (Terrain.length > 0) {
+	/*if (Terrain.length > 0) {
 		const { data: allTerrainLoot } = await supabaseClient
 		.from("TerrainLoot")
 		.select("TerrainId, TerrainLoot, TLootWeight")
@@ -123,11 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 		popup.innerHTML = outputText;
 		
-	});
+	});*/
 			
-
-		
-		closeBtn.addEventListener("click", () => {
-			popup.classList.remove("show");
-		});
+});
 });
