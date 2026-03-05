@@ -63,6 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 		
+		encounter.sort((a, b) => {
+			if (a.CR !== b.CR) return a.CR - b.CR;
+			return a.EnemyName.localeCompare(b.EnemyName);
+		});
+		
 		container.innerHTML = "";
 		
 		const header = document.createElement('div');
