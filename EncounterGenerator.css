@@ -41,11 +41,21 @@
 }
 
 body {
-	width: 60%;
+	width: 100%;
+	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	text-align:center;
 	justify-content:center;
+		background: linear-gradient(
+		to bottom,
+		rgba(0,0,0,0) 70%,
+		rgba(0,0,0,0.8) 90%,
+		rgba(0,0,0,1) 100%
+		), url('./Images/BirbBg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 html {
@@ -53,10 +63,7 @@ html {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-image: url('./Images/BirbBg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+	background-color: black;
 	color: white;
 }
 
@@ -81,3 +88,9 @@ html {
 	width: 65%;
 	height: 250px;
 }
+
+.page content {
+	width: 60%
+}
+
+
