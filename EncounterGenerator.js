@@ -1,4 +1,4 @@
-import {Shuffle} from "./shuffle.js";
+import {Shuffle} from "./Shuffle.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 	const generateBtn = document.getElementById("generate");
