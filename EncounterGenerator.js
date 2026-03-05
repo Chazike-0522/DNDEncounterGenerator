@@ -1,4 +1,4 @@
-import {shuffle} from "./shuffle.js";
+import {Shuffle} from "./shuffle.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 	const generateBtn = document.getElementById("generate");
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				if (enemyError) throw enemyError;
 				
 				EnemyTable = terrainEnemies || [];
-				EnemyTable = shuffle(EnemyTable).slice(0, 5);
+				EnemyTable = Shuffle(EnemyTable).slice(0, 5);
 			}
 		}
 	 catch (err) {
