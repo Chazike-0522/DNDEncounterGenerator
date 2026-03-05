@@ -66,6 +66,7 @@ html {
 }
 
 .gridContainer {
+	padding-top: 10px;
 	visibility: hidden;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
