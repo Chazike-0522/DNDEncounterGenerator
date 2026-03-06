@@ -56,6 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
 		for (const store of storeTable) {
 			const storeColumn = document.createElement('div');
 			storeColumn.classList.add('storeColumn');
+			
+			const index = storeTable.indexOf(store);
+			
+			switch (index) {
+				case 0:
+					storeColumn.classList.add('red');
+					break;
+				case 1: 
+					storeColumn.classList.add('blue');
+					break;
+				default:
+					storeColumn.classList.add('green');
+			}
+			
 			storeColumn.id = `storeColumn-${store.StoreId}`;
 			container.appendChild(storeColumn);
 			

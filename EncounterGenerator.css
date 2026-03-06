@@ -234,18 +234,50 @@ html {
 	font-size: 15px;
 }
 
-.storeOptions {
+.storeColumn.blue .storeOptions {
 	padding: 5px;
 	font-size: 13px;
 	color: white;
-	background-color: rgba(9,26,125, 0.8);
-	border: 2px solid #13dbed;
+	background-color:#0183FE;
+	border: 2px solid #349CFE;
 }
 
-.storeOptions:hover {
-	background-color: rgba(49,222,235,0.9);
+.storeColumn.blue .storeOptions:hover {
+	background-color: #73c1f5;
 }
 
-.storeOptions.active {
-		background-color: rgba(49,222,235,0.9);
+.storeColumn.blue .storeOptions.active {
+		background-color: #73c1f5;
+}
+
+.storeColumn.red .storeOptions {
+	padding: 5px;
+	font-size: 13px;
+	color: white;
+	background-color:#DB2432;
+	border: 2px solid #E2505B;
+}
+
+.storeColumn.red .storeOptions:hover {
+	background-color: #f58c94;
+}
+
+.storeColumn.red .storeOptions.active {
+		background-color:#f58c94;
+}
+
+.storeColumn.green .storeOptions {
+	padding: 5px;
+	font-size: 13px;
+	color: white;
+	background-color:#28D78F;
+	border: 2px solid #53DFA5;
+}
+
+.storeColumn.green .storeOptions:hover {
+	background-color: #8df7cb;
+}
+
+.storeColumn.green .storeOptions.active {
+		background-color: #8df7cb;
 }
