@@ -7,6 +7,7 @@
 	<link rel="icon" href="data:;base64iVBORw0KGgo=">
 	<script src="Track.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+	<script type="module" src="Store.js"></script>
 	<script type="module" src="EncounterGenerator.js"></script>
 </head>
 
@@ -48,6 +49,9 @@
 						<input type="number" id="Day" placeholder="1" min="1">
 						<div class="stores">
 							<button id="purchase">Generate Stores</button>
+							<div class="flexContainer" id="flexContainer">
+							<!-- items will be dynamically generated - Store.js -->
+							</div>
 						</div>
 					</div>
 				</div>

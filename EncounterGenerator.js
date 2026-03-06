@@ -1,13 +1,12 @@
 import {Shuffle} from "./Shuffle.js";
+import { supabaseClient } from './supabaseClient.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 	const generateBtn = document.getElementById("generate");
 	const targetCRInput = document.getElementById("CR");
 	const container = document.getElementById('gridContainer');
 	
-	const SUPABASE_URL = "https://wgwvwcegagtmgxvybdok.supabase.co";
-	const SUPABASE_KEY = "sb_publishable_EqSdBnhzoZ1UDXfKnd6Yvw_v1nko1qS";
-	const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+	
 		
 	generateBtn.addEventListener("click", async () => {
 		container.classList.add("show");
