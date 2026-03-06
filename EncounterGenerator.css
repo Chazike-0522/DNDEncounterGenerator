@@ -26,6 +26,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+	overflow-x: hidden;
 }
 
 html {
@@ -35,6 +36,7 @@ html {
     padding: 0;
 	background-color: black;
 	color: white;
+	box-sizing:border-box;
 }
 
 .MenuContainer {
@@ -42,16 +44,14 @@ html {
 	flex-direction: column;
 	align-items:center;
 	justify-content:center;
-	
+	width: 100%;
 	background-color: rgba(0,0,0,0.6);
 	padding: 20px;
 	border-radius: 8px;
 	
 	text-align: center;
 	
-	width: 80%;
 	max-width: 800px;
-	margin: 20px auto;
 }
 
 .titleImg {
@@ -60,9 +60,12 @@ html {
 }
 
 .pageContent {
-	margin-left: auto;
-	margin-right: auto;
-	width: 60%
+	width: 100%;
+	display: flex;
+	margin: 0 auto;
+	height: auto;
+	flex-direction: column;
+	align-items:center;
 }
 
 .gridContainer {
@@ -79,4 +82,57 @@ html {
 	padding: 20px;
 	text-align: center;
 	border-radius: 8px;
+}
+
+.carousel {
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.viewport {
+	overflow: hidden;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing:border-box;
+}
+
+.track {
+	display: flex;
+	transition: transform 0.4s ease;
+	width: 100%;
+	box-sizing:border-box;
+}
+
+.slide {
+	min-width: 100%;
+	flex-shrink: 0;
+	text-align: center;
+	box-sizing: border-box;
+
+}
+
+.buttonMenu {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.buttonMenu .cycle {
+	font-size: 1 rem;
+	cursor: pointer;
+}
+
+.secondTitleImg {
+	max-width: 40%;
+	height: auto;
+	display: block;
+}
+
+
+.slide, .pageContent{
+	box-sizing: border-box;
 }

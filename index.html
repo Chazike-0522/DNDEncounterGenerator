@@ -5,26 +5,62 @@
 	<title>DND Encounter Generator</title>
 	<link rel="stylesheet" href="EncounterGenerator.css">
 	<link rel="icon" href="data:;base64iVBORw0KGgo=">
+	<script src="Track.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 	<script type="module" src="EncounterGenerator.js"></script>
 </head>
 
 <body>
-	<div class="pageContent">
-		<img class="titleImg" src="./Images/Title_img.png" alt="DND Encounter Generator">
+<div class="carousel">	
+	<div class ="viewport">
+		<div class="track">
+			<div class="slide">
+				<div class="pageContent">
+					<img class="titleImg" src="./Images/Title_img.png" alt="DND Encounter Generator">	
+					<div class="MenuContainer">
+						<div class="buttonMenu">
+							<button class="prev">Arena</button>
+							<button class="next">Stores</button>
+						</div>
+						<h2>Your Party Awaits Their Next Challenge:</h2>
+						<label for ="CR">Enter Challenge Rating: </label>
+						<input type="number" id="CR" placeholder="5" min="1">
 	
-		<div class="MenuContainer">
-			<h2>Your Party Awaits Their Next Challenge:</h2>
-			<label for ="CR">Enter Challenge Rating: </label>
-			<input type="number" id="CR" placeholder="5" min="1">
-	
-			<div class="popup">
-				<button id="generate">Begin Challenge</button>
-				<div class="gridContainer" id="gridContainer">
-					<!-- items will be dynamically generated - EncounterGenerator.js -->
+						<div class="popup">
+							<button id="generate">Begin Challenge</button>
+							<div class="gridContainer" id="gridContainer">
+							<!-- items will be dynamically generated - EncounterGenerator.js -->
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+			<div class="slide">
+				<div class="pageContent">
+					<img class="secondTitleImg" src="./Images/NightMarketTitle.png" alt="The Night Market">				
+					<div class="MenuContainer">
+						<div class="buttonMenu">
+							<button class="prev" >Encounters</button>
+							<button class="next" >Arena</button>
+						</div>
+						<h2>What Awaits You In The Market Today?</h2>
+						<label for ="Day">Enter the day here: </label>
+						<input type="number" id="Day" placeholder="1" min="1">
+						<div class="stores">
+							<button id="purchase">Generate Stores</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="slide">
+				<div class ="thirdTitleImg">
+						<div class="buttonMenu">
+							<button class="prev" >Store</button>
+							<button class="next" >Encounters</button>
+						</div>
+				</div>
+			</div>plea
+		</div>			
+	</div>	
 </body>
 </html>
