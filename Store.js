@@ -28,10 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
 			
 			//intentional fall through 
 			switch (true) {
-				case targetDay > 5:
+				case targetDay >= 5:
 					selectStore();
-				case targetDay > 2:
 					selectStore();
+					selectStore();
+					break;
+				case targetDay >= 2:
+					selectStore();
+					selectStore();
+					break;
 				default:
 					selectStore();
 			}
@@ -49,10 +54,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		const hiddenSection = document.getElementById('leftColumn');
 		
 		for (const store of storeTable) {
+			const storeColumn = document.createElement('div');
+			storeColumn.classList.add('storeColumn');
+			storeColumn.id = `storeColumn-${store.StoreId}`;
+			container.appendChild(storeColumn);
+			
 			const storeHeader = document.createElement('div');
-			storeHeader.textContent = `Store: ${store.StoreName} (Day ${store.StoreDay})`;
+			storeHeader.textContent = `${store.StoreName}`;
 			storeHeader.style.fontWeight = 'bold';
-			container.appendChild(storeHeader);
+			storeColumn.appendChild(storeHeader);
 			
 			const { data: stockItems, error } = await supabaseClient
 			.from("Stock")
@@ -63,14 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (error) {
 			const errMsg = document.createElement('div');
 			errMsg.textContent = `Error fetchign stock for ${store.StoreName}`;
-			container.appendChild(errMsg);
+			storeColumn.appendChild(errMsg);
 			continue;
 		}
 		
 		if (!stockItems || stockItems.length === 0) {
 			const noStock = document.createElement('div');
 			noStock.textContent = " No stock available.";
-			container.appendChild(noStock);
+			storeColumn.appendChild(noStock);
 			continue;
 		}
 		
@@ -78,14 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			const rarity = getRarity(item.Items.ItemValue);
 			
 			const btn = document.createElement('button');
-			btn.textContent = `${item.StockItems} || ${rarity}`;
+			btn.textContent = `${item.StockItems}`;
 			btn.addEventListener('click', () => {
 				extraDetails.classList.add("show");
 				hiddenSection.classList.add("show");
 				itemDetail(item, rarity, extraDetails);
 	});
 	
-	container.appendChild(btn);
+	storeColumn.appendChild(btn);
 
 		}
 	}
@@ -94,8 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	function selectStore () {
 		const use = shuffledStores.shift();
-		
-		storeTable.push(use);
+		console.log("Selecting store:", use);
+		if (use) storeTable.push(use);
 		
 	}
 		
