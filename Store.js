@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			
 			shuffledStores = Shuffle(Stores);
 			
+			//intentional fall through 
 			switch (true) {
 				case targetDay > 5:
 					selectStore();
@@ -43,8 +44,15 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 					
 	async function printStoresStock(targetDay) {
+		container.innerHTML ="";
+		const extraDetails = document.getElementById('hiddenData');
+		const hiddenSection = document.getElementById('leftColumn');
+		
 		for (const store of storeTable) {
-			htmlOutput += `Store: ${store.StoreName} (Day ${store.StoreDay})<br>`;
+			const storeHeader = document.createElement('div');
+			storeHeader.textContent = `Store: ${store.StoreName} (Day ${store.StoreDay})`;
+			storeHeader.style.fontWeight = 'bold';
+			container.appendChild(storeHeader);
 			
 			const { data: stockItems, error } = await supabaseClient
 			.from("Stock")
@@ -53,37 +61,36 @@ document.addEventListener("DOMContentLoaded", () => {
 			.lte("Day", targetDay);
 	
 		if (error) {
-			htmlOutput = `Error fetching stock for ${store.StoreName}<br>`;
-			return;
+			const errMsg = document.createElement('div');
+			errMsg.textContent = `Error fetchign stock for ${store.StoreName}`;
+			container.appendChild(errMsg);
+			continue;
 		}
 		
 		if (!stockItems || stockItems.length === 0) {
-			htmlOutput = " No stock available.";
-			return;
+			const noStock = document.createElement('div');
+			noStock.textContent = " No stock available.";
+			container.appendChild(noStock);
+			continue;
 		}
+		
 		for (const item of stockItems) {
-			let rarity;
-			switch (item.Items.ItemValue) {
-				case 12:
-					rarity = 'Legendary';
-					break;
-				case 8:
-					rarity = 'Very Rare';
-					break;
-				case 4:
-					rarity = 'Rare';
-					break;
-				case 2:
-					rarity = 'Uncommon';
-					break;
-				default:
-					rarity = 'Common';
-			}	
-			htmlOutput += ` -${item.StockItems} || ${rarity}) || ${item.Items.Modifiers}<br>`;				
+			const rarity = getRarity(item.Items.ItemValue);
+			
+			const btn = document.createElement('button');
+			btn.textContent = `${item.StockItems} || ${rarity}`;
+			btn.addEventListener('click', () => {
+				extraDetails.classList.add("show");
+				hiddenSection.classList.add("show");
+				itemDetail(item, rarity, extraDetails);
+	});
+	
+	container.appendChild(btn);
+
 		}
-		container.innerHTML = htmlOutput;
 	}
 }
+
 	
 	function selectStore () {
 		const use = shuffledStores.shift();
@@ -92,6 +99,22 @@ document.addEventListener("DOMContentLoaded", () => {
 		
 	}
 		
-			
+	function itemDetail (item, rarity, extraDetails) {
+		
+		let itemDetails = `-${item.StockItems}<br>${rarity}<br>--------------------<br><br>${item.Items.Modifiers || "None"}`;
+		extraDetails.innerHTML = itemDetails;
+		
+	}	
+
+	function getRarity (value) {
+		switch(value){
+			case 12: return 'Legendary';
+			case 8: return 'Very Rare';
+			case 4: return 'Rare';
+			case 2: return 'Uncommon';
+			default: return 'Common';
+		}
+	}
+	
 	});
 });

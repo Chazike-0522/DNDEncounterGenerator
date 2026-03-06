@@ -11,8 +11,10 @@
 }
 
 body {
+	display: flex;
 	width: 100%;
 	height: 100%;
+	min-height: 100vh;
 	margin-left: auto;
 	margin-right: auto;
 	text-align:center;
@@ -27,6 +29,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 	overflow-x: hidden;
+	align-items: stretch;
 }
 
 html {
@@ -92,9 +95,7 @@ html {
 
 .viewport {
 	overflow: hidden;
-	width: 60%;
-	margin-left: auto;
-	margin-right: auto;
+	width: 100%;
 	box-sizing:border-box;
 }
 
@@ -135,4 +136,50 @@ html {
 
 .slide, .pageContent{
 	box-sizing: border-box;
+}
+
+.leftColumn {
+	position: fixed;
+	color: white;
+	top: 0;
+	left: -420px;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	background-color: rgba(0,0,0,0.6);
+	box-sizing: border-box;
+	width: 20%;
+	transition: left 0.3s ease;
+	overflow-y: auto;
+	z-index: 1000;
+}
+
+.rightColumn {
+	width: 20%;
+}
+
+.middleColumn {
+	width: 60%;
+	margin-left: 20%;
+}
+
+.hiddenData {
+	visibility: hidden;
+}
+
+.flexContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.hiddenData.show {
+	visibility: visible;
+}
+
+.leftColumn.show {
+	left: 0
 }
