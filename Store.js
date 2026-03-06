@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			container.appendChild(storeColumn);
 			
 			const storeHeader = document.createElement('div');
+			storeHeader.classList.add("storeHeader");
 			storeHeader.textContent = `${store.StoreName}`;
 			storeHeader.style.fontWeight = 'bold';
 			storeColumn.appendChild(storeHeader);
@@ -89,10 +90,24 @@ document.addEventListener("DOMContentLoaded", () => {
 			
 			const btn = document.createElement('button');
 			btn.textContent = `${item.StockItems}`;
+			btn.classList.add("storeOptions");
 			btn.addEventListener('click', () => {
+				document.querySelectorAll('.storeOptions').forEach(button=>{
+					button.addEventListener('click', function() {
+					
+						const current = document.querySelector('.storeOptions.active');
+						if (current) {
+							current.classList.remove('active');
+						}
+					
+						this.classList.add('active');
+						
+						
 				extraDetails.classList.add("show");
 				hiddenSection.classList.add("show");
 				itemDetail(item, rarity, extraDetails);
+					});
+				});
 	});
 	
 	storeColumn.appendChild(btn);
@@ -111,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		
 	function itemDetail (item, rarity, extraDetails) {
 		
-		let itemDetails = `-${item.StockItems}<br>${rarity}<br>--------------------<br><br>${item.Items.Modifiers || "None"}`;
+		let itemDetails = `${item.StockItems}<br>${rarity}<br>--------------------<br><br>${item.Items.Modifiers || "None"}`;
 		extraDetails.innerHTML = itemDetails;
 		
 	}	
