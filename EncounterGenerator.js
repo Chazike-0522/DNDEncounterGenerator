@@ -1,5 +1,5 @@
 import {Shuffle} from "./Shuffle.js";
-import { supabaseClient } from './supabaseClient.js';
+import { supabaseClient } from './SupabaseClient.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 	const generateBtn = document.getElementById("generate");
