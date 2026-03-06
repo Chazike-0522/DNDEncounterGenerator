@@ -101,13 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
 						}
 					
 						this.classList.add('active');
-						
-						
+					});
+				});
 				extraDetails.classList.add("show");
 				hiddenSection.classList.add("show");
 				itemDetail(item, rarity, extraDetails);
-					});
-				});
 	});
 	
 	storeColumn.appendChild(btn);
