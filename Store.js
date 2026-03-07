@@ -57,19 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			const storeColumn = document.createElement('div');
 			storeColumn.classList.add('storeColumn');
 			
-			const index = storeTable.indexOf(store);
-			
-			switch (index) {
-				case 0:
-					storeColumn.classList.add('red');
-					break;
-				case 1: 
-					storeColumn.classList.add('blue');
-					break;
-				default:
-					storeColumn.classList.add('green');
-			}
-			
 			storeColumn.id = `storeColumn-${store.StoreId}`;
 			container.appendChild(storeColumn);
 			
@@ -77,14 +64,26 @@ document.addEventListener("DOMContentLoaded", () => {
 			storeHeader.classList.add("storeHeader");
 			storeHeader.textContent = `${store.StoreName}`;
 			storeHeader.style.fontWeight = 'bold';
-			storeColumn.appendChild(storeHeader);
 			
+			const rareItems = document.createElement('div');
+			rareItems.classList.add('rareItems');
+			
+			const normalItems = document.createElement('div');
+			normalItems.classList.add('normalItems');
+			
+			storeColumn.appendChild(storeHeader);
+			storeColumn.appendChild(rareItems);
+			storeColumn.appendChild(normalItems);
+			
+			/*recreate fk in dp if it ever goes bad*/
 			const { data: stockItems, error } = await supabaseClient
 			.from("Stock")
-			.select("StockId, StockItems, StoreId, StockWeight, ItemId, Day, Items(ItemValue, ItemId, ItemName, ItemDescription, Modifiers)")
+			.select("StockId, StockItems, StoreId, StockWeight, ItemId, Day, Items!Stock_ItemId_fkey(ItemValue, ItemId, ItemName, ItemDescription, Modifiers)")
 			.eq("StoreId", store.StoreId)
-			.lte("Day", targetDay);
+			.lte("Day", targetDay)
 	
+		console.log("Stock raw:", stockItems, "Error: ", error);
+		
 		if (error) {
 			const errMsg = document.createElement('div');
 			errMsg.textContent = `Error fetchign stock for ${store.StoreName}`;
@@ -99,31 +98,54 @@ document.addEventListener("DOMContentLoaded", () => {
 			continue;
 		}
 		
+		stockItems.sort((a, b) => (b.Items?.ItemValue || 0) - (a.Items?.ItemValue || 0));
+	
 		for (const item of stockItems) {
-			const rarity = getRarity(item.Items.ItemValue);
+			const itemData = item.Items || { ItemValue: 0, Modifiers: "None" };
+			const rarity = getRarity(itemData.ItemValue);
+			
+			if (Math.random() > item.StockWeight) continue;
 			
 			const btn = document.createElement('button');
-			btn.textContent = `${item.StockItems}`;
+			btn.textContent = item.StockItems;
+			switch (rarity) {
+				case 'Legendary':
+					btn.classList.add("gold");
+					break;
+				case 'Very Rare': 
+					btn.classList.add("purple");
+					break;
+				case 'Rare':
+					btn.classList.add("blue");
+					break;
+				case 'Uncommon':
+					btn.classList.add("green");
+					break;
+				default:
+					btn.classList.add("grey");
+			}
 			btn.classList.add("storeOptions");
+			
 			btn.addEventListener('click', () => {
-				document.querySelectorAll('.storeOptions').forEach(button=>{
-					button.addEventListener('click', function() {
-					
-						const current = document.querySelector('.storeOptions.active');
-						if (current) {
-							current.classList.remove('active');
-						}
-					
-						this.classList.add('active');
-					});
-				});
+				document.querySelectorAll('.storeOptions').forEach(b => b.classList.remove('active'));
+				btn.classList.add('active');
 				extraDetails.classList.add("show");
 				hiddenSection.classList.add("show");
 				itemDetail(item, rarity, extraDetails);
-	});
+					});
 	
-	storeColumn.appendChild(btn);
-
+	if (item.StockWeight < 1) {
+		rareItems.appendChild(btn);
+	} else {
+		normalItems.appendChild(btn);
+	}
+		}
+	
+		if (rareItems.children.length > 0) {			
+			const rareHeader = document.createElement('div');
+			rareHeader.textContent = "Rare Stock";
+			rareHeader.classList.add('rareHeader');
+			rareItems.prepend(rareHeader);
 		}
 	}
 }
@@ -138,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		
 	function itemDetail (item, rarity, extraDetails) {
 		
-		let itemDetails = `${item.StockItems}<br>${rarity}<br>--------------------<br><br>${item.Items.Modifiers || "None"}`;
+		let itemDetails = `${item.StockItems}<br>${rarity}<br>--------------------<br><br>${item.Items?.Modifiers || "None"}`;
 		extraDetails.innerHTML = itemDetails;
 		
 	}	
@@ -153,5 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 	
-	});
-});
+	});	
+});	
+	

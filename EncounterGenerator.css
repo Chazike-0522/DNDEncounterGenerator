@@ -58,7 +58,7 @@ html {
 	justify-content:center;
 	width: 100%;
 	background-color: rgba(0,0,0,0.6);
-	padding: 20px;
+	padding: 15px;
 	border-radius: 8px;
 	overflow-x: hidden;
 	text-align: center;
@@ -234,7 +234,7 @@ html {
 	font-size: 15px;
 }
 
-.storeColumn.blue .storeOptions {
+.storeColumn .storeOptions.blue {
 	padding: 5px;
 	font-size: 13px;
 	color: white;
@@ -242,31 +242,31 @@ html {
 	border: 2px solid #349CFE;
 }
 
-.storeColumn.blue .storeOptions:hover {
+.storeColumn .storeOptions.blue:hover {
 	background-color: #73c1f5;
 }
 
-.storeColumn.blue .storeOptions.active {
+.storeColumn .storeOptions.blue.active {
 		background-color: #73c1f5;
 }
 
-.storeColumn.red .storeOptions {
+.storeColumn .storeOptions.purple {
 	padding: 5px;
 	font-size: 13px;
 	color: white;
-	background-color:#DB2432;
-	border: 2px solid #E2505B;
+	background-color:#752E86;
+	border: 2px solid #963CAC;
 }
 
-.storeColumn.red .storeOptions:hover {
-	background-color: #f58c94;
+.storeColumn .storeOptions.purple:hover {
+	background-color: #af58c4;
 }
 
-.storeColumn.red .storeOptions.active {
-		background-color:#f58c94;
+.storeColumn .storeOptions.purple.active {
+		background-color: #af58c4;
 }
 
-.storeColumn.green .storeOptions {
+.storeColumn .storeOptions.gold {
 	padding: 5px;
 	font-size: 13px;
 	color: white;
@@ -274,10 +274,63 @@ html {
 	border: 2px solid #53DFA5;
 }
 
-.storeColumn.green .storeOptions:hover {
+.storeColumn .storeOptions.gold:hover {
 	background-color: #8df7cb;
 }
 
-.storeColumn.green .storeOptions.active {
+.storeColumn .storeOptions.gold.active {
+		background-color: #8df7cb;
+}
+
+.storeColumn .storeOptions.grey {
+	padding: 5px;
+	font-size: 13px;
+	color: white;
+	background-color:#8193A0;
+	border: 2px solid #9EACB6;
+}
+
+.storeColumn .storeOptions.grey:hover {
+	background-color: #c7ced4;
+}
+
+.storeColumn .storeOptions.grey.active {
+		background-color: #c7ced4;
+}
+
+.rareItems {
+	display: flex;
+	flex-direction: column;
+	border: 2px solid #ebcf14;
+}
+
+.rareItems, .normalItems {
+	display: flex;
+	flex-direction: column;
+}
+
+.rareHeader {
+	background-color: #ebcf14;
+	padding: 2px;
+	color: black;
+}
+
+.storeOptions {
+	min-height: 40px;
+}
+
+.storeColumn .storeOptions.green {
+	padding: 5px;
+	font-size: 13px;
+	color: white;
+	background-color:#28D78F;
+	border: 2px solid #53DFA5;
+}
+
+.storeColumn .storeOptions.green:hover {
+	background-color: #8df7cb;
+}
+
+.storeColumn .storeOptions.green.active {
 		background-color: #8df7cb;
 }
