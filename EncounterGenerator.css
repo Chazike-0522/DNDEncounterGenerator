@@ -155,8 +155,6 @@ html {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	padding: 20px;
 	background-color: rgba(0,0,0,0.6);
 	box-sizing: border-box;
@@ -164,6 +162,19 @@ html {
 	transition: left 0.3s ease;
 	overflow-y: auto;
 	z-index: 1000;
+}
+
+.leftBody {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items:center;
+	flex-grow:1;
+}
+
+.xWrapper {
+	display: flex;
+	justify-content: right;
 }
 
 .rightColumn {
@@ -222,6 +233,18 @@ html {
 .storeColumn {
 	scrollbar-width: thin;
 	scrollbar-color: rgba(255,255,255,0.3) rgba(255,255,255,0.05);
+}
+
+.close-btn {
+	background-color: rgba(255,255,255,0);
+	color: #8f092c;
+	border: none;
+	font-size: 30px;
+	cursor: pointer;
+}
+
+.close-btn:hover {
+	color: #c4214d;
 }
 
 .storeColumn .storeHeader {
@@ -317,6 +340,7 @@ html {
 
 .storeOptions {
 	min-height: 40px;
+	cursor: pointer;
 }
 
 .storeColumn .storeOptions.green {
@@ -333,4 +357,16 @@ html {
 
 .storeColumn .storeOptions.green.active {
 		background-color: #8df7cb;
+}
+
+#CR {
+	width: 75px;
+}
+
+#Day {
+	width: 75px;
+}
+
+#generate, #purchase {
+	margin-bottom: 10px;
 }

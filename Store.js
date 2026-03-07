@@ -28,17 +28,32 @@ document.addEventListener("DOMContentLoaded", () => {
 			
 			
 			switch (true) {
-				case targetDay >= 5:
+				case targetDay == 5:
 					selectStore();
-					selectStore(2);
+					selectStore(5);
+					selectStore(4);
+					break;
+				case targetDay == 4:
+					selectStore();
+					selectStore();
+					selectStore(4);
+					break;
+				case targetDay == 3:
+					selectStore();
+					selectStore(4);
 					selectStore(1);
 					break;
-				case targetDay >= 2:
-					selectStore(2);
+				case targetDay == 2:
+					selectStore(3);
+					selectStore(1);
+					break;
+				case targetDay == 1:
 					selectStore(1);
 					break;
 				default:
-					selectStore(1);
+					selectStore();
+					selectStore();
+					selectStore(4);
 			}
 			console.log("Raw response:", Stores, error);
 			printStoresStock(targetDay);
@@ -103,6 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			const itemData = item.Items || { ItemValue: 0, Modifiers: "None" };
 			const rarity = getRarity(itemData.ItemValue);
 			
+			document.getElementById("closeDetails").addEventListener("click", clearActive);
+			
 			if (Math.random() > item.StockWeight) continue;
 			
 			const btn = document.createElement('button');
@@ -126,10 +143,16 @@ document.addEventListener("DOMContentLoaded", () => {
 			btn.classList.add("storeOptions");
 			
 			btn.addEventListener('click', () => {
-				document.querySelectorAll('.storeOptions').forEach(b => b.classList.remove('active'));
+				if (btn.classList.contains('active')){
+					clearActive();
+					return;
+				}
+				
+				clearActive();
 				btn.classList.add('active');
 				extraDetails.classList.add("show");
 				hiddenSection.classList.add("show");
+				
 				itemDetail(item, rarity, extraDetails);
 					});
 	
@@ -146,6 +169,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			rareHeader.classList.add('rareHeader');
 			rareItems.prepend(rareHeader);
 		}
+	}
+	
+		
+	function clearActive() {
+		document.querySelectorAll('.storeOptions').forEach(b => b.classList.remove('active'));
+		extraDetails.classList.remove("show");
+		hiddenSection.classList.remove("show");
+		extraDetails.innerHTML = "";
 	}
 }
 
@@ -188,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			default: return 'Common';
 		}
 	}
+
 	
 	});	
 });	
