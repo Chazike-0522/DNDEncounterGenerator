@@ -26,19 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
 			
 			shuffledStores = Shuffle(Stores);
 			
-			//intentional fall through 
+			
 			switch (true) {
 				case targetDay >= 5:
 					selectStore();
-					selectStore();
-					selectStore();
+					selectStore(2);
+					selectStore(1);
 					break;
 				case targetDay >= 2:
-					selectStore();
-					selectStore();
+					selectStore(2);
+					selectStore(1);
 					break;
 				default:
-					selectStore();
+					selectStore(1);
 			}
 			console.log("Raw response:", Stores, error);
 			printStoresStock(targetDay);
@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			storeColumn.appendChild(rareItems);
 			storeColumn.appendChild(normalItems);
 			
-			/*recreate fk in dp if it ever goes bad*/
 			const { data: stockItems, error } = await supabaseClient
 			.from("Stock")
 			.select("StockId, StockItems, StoreId, StockWeight, ItemId, Day, Items!Stock_ItemId_fkey(ItemValue, ItemId, ItemName, ItemDescription, Modifiers)")
@@ -151,11 +150,26 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
 	
-	function selectStore () {
-		const use = shuffledStores.shift();
-		console.log("Selecting store:", use);
-		if (use) storeTable.push(use);
+	function selectStore (forceStore = null) {
+		let use; 
+		console.log("force store = ", forceStore);
+		if(forceStore !== null) {
+			const index = shuffledStores.findIndex(s => s.StoreId === forceStore);
+			if (index!== -1) {
+				use = shuffledStores.splice(index, 1)[0];
+			}
+		}
 		
+		if (!use) {
+			use = shuffledStores.shift();
+		}
+		
+		console.log("Selecting store:", use ?  use : "nothing");
+		
+		if (use) storeTable.push(use);
+		storeTable.sort((a, b) => a.StoreId - b.StoreId);
+		
+		console.log(storeTable);
 	}
 		
 	function itemDetail (item, rarity, extraDetails) {
