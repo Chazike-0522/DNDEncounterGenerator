@@ -5,4 +5,4 @@ export function Shuffle(array) {
 	}
 	return array;
 }
-//comment
+//a function to export a shuffle algorithim : fisher-yates

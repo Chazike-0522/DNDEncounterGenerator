@@ -1,4 +1,4 @@
-
+//creates necessary connections to supabase database.
 
 const SUPABASE_URL = "https://wgwvwcegagtmgxvybdok.supabase.co";
 const SUPABASE_KEY = "sb_publishable_EqSdBnhzoZ1UDXfKnd6Yvw_v1nko1qS";

@@ -26,3 +26,5 @@ prevBtn.forEach(btn => btn.addEventListener("click", () => {
 	track.style.transform = `translateX(-${index * 100}%)`;
 }));
 });
+
+//manages the slideshow function that allows us to change the primary active module or "viewport"
