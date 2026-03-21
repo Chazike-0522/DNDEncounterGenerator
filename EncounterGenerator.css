@@ -59,6 +59,7 @@ html {
 	width: 100%;
 	background-color: rgba(0,0,0,0.6);
 	padding: 15px;
+	padding-bottom: 75px;
 	border-radius: 8px;
 	overflow-x: hidden;
 	text-align: center;
@@ -293,7 +294,7 @@ html {
 	padding: 5px;
 	font-size: 13px;
 	color: white;
-	background-color:#D4AF37;
+	background-color:#D4AF37 ;
 	border: 2px solid #FFD700;
 }
 
