@@ -293,16 +293,16 @@ html {
 	padding: 5px;
 	font-size: 13px;
 	color: white;
-	background-color:#28D78F;
-	border: 2px solid #53DFA5;
+	background-color:#FFD700;
+	border: 2px solid #B78700;
 }
 
 .storeColumn .storeOptions.gold:hover {
-	background-color: #8df7cb;
+	background-color: #fce358;
 }
 
 .storeColumn .storeOptions.gold.active {
-		background-color: #8df7cb;
+		background-color: #fce358;
 }
 
 .storeColumn .storeOptions.grey {
