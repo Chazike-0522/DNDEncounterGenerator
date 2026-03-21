@@ -293,8 +293,8 @@ html {
 	padding: 5px;
 	font-size: 13px;
 	color: white;
-	background-color:#FFD700;
-	border: 2px solid #B78700;
+	background-color:#B78700;
+	border: 2px solid #FFD700;
 }
 
 .storeColumn .storeOptions.gold:hover {
